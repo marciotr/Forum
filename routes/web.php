@@ -25,6 +25,11 @@ Route::get(
 )->name('routeListAllUsers');
 
 Route::get(
+    '/users/{uid}', 
+    [UserController::class,'listUser']
+)->name('routeListUser');
+
+Route::get(
     '/createUser', 
     [UserController::class,'createUser']
 )->name('routeCreateUser');
@@ -41,6 +46,6 @@ Route::get(
 
 Route::match(
     ['get', 'post'],
-    '/login',
+    '/logar',
     [AuthController::class, 'loginUser']
-)->name('login');
+)->name('routeLogin');
