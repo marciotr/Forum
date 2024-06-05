@@ -20,19 +20,9 @@ Route::get('/', function () {
 });
 
 Route::get(
-    '/users', 
-    [UserController::class,'listAllUsers']
-)->name('routeListAllUsers');
-
-Route::get(
-    '/users/{uid}', 
-    [UserController::class,'listUser']
-)->name('routeListUser');
-
-Route::get(
-    '/createUser', 
-    [UserController::class,'createUser']
-)->name('routeCreateUser');
+    '/registerUser', 
+    [UserController::class,'registerUser']
+)->name('routeRegisterUser');
 
 Route::get(
     '/profile', 
@@ -49,3 +39,13 @@ Route::match(
     '/logar',
     [AuthController::class, 'loginUser']
 )->name('routeLogin');
+
+Route::middleware('auth'->group(function(){
+    Route::get('/users',
+        [UserController::class, 'listAllUsers']
+    )->name('ListAllUsers');
+
+    Route::get('/users/{uid}',
+        [UserController::class, 'listUser']
+    )->name('ListUser');
+}));

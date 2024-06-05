@@ -22,4 +22,23 @@ class UserController extends Controller
         return view('users.userProfile');
     }
 
+    public function registerUser(Request $request){
+        if ($request->method() === 'GET') {
+        } 
+        else {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed'
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Math::make($request->password),
+            ]);
+        }
+        
+    }
+
 }
